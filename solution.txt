@@ -1,0 +1,34 @@
+1. Connect to PostgreSQL
+psql --username=freecodecamp --dbname=postgres
+
+2. Create database and connect
+CREATE DATABASE salon;
+\c salon
+
+3. Create tables
+CREATE TABLE customers(
+	customer_id serial PRIMARY KEY,
+	phone VARCHAR UNIQUE,
+	name VARCHAR
+);
+
+CREATE TABLE appointments(
+	appointment_id serial PRIMARY KEY,
+	customer_id int NOT NULL,
+	service_id int NOT NULL,
+	time VARCHAR,
+	FOREIGN KEY(customer_id) REFERENCES customers(customer_id),
+	FOREIGN KEY(service_id) REFERENCES services(service_id)
+);
+
+CREATE TABLE services(
+	service_id serial PRIMARY KEY,
+	name VARCHAR
+);
+
+4. Insert services
+INSERT INTO services(name) VALUES('cut'), ('color'), ('perm'), ('style'), ('trim');
+
+5. Create salon.sh
+touch salon.sh
+chmod +x salon.sh
